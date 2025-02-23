@@ -19,7 +19,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}  # Placeholder
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # Placeholder
           envs:
-            APP_DIR: /home/your_username/my_app  # ***REPLACE WITH YOUR ACTUAL SERVER PATH***
+            APP_DIR: /home/suyash/github-actions-project/app
             APP_NAME: app.py
             VIRTUAL_ENV_NAME: venv
             PYTHON_BIN: python3
