@@ -1,0 +1,30 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to server
+        uses: appleboy/ghaction-ssh@master
+        with:
+          host: ${{ secrets.SERVER_IP }}  # Placeholder
+          username: ${{ secrets.SERVER_USERNAME }}  # Placeholder
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  # Placeholder
+          envs:
+            APP_DIR: /home/your_username/my_app  # ***REPLACE WITH YOUR ACTUAL SERVER PATH***
+            APP_NAME: app.py
+            VIRTUAL_ENV_NAME: venv
+            PYTHON_BIN: python3
+            REQUIREMENTS_FILE: requirements.txt
+          script: |
+            scp scripts/deploy.sh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }}:${{ env.APP_DIR }}
+            chmod +x ${{ env.APP_DIR }}/deploy.sh
+            bash ${{ env.APP_DIR }}/deploy.sh
